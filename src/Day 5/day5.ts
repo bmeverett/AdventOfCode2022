@@ -27,9 +27,9 @@ export async function run() {
 
     if (!fromCrate || !toCrate) continue;
     let cratesToMove: string[] = [];
-    for (let i = 1; i <= move; i++) {
-      cratesToMove.splice(0, 0, ...fromCrate.splice(0, 1));
-    }
+    // for (let i = 1; i <= move; i++) {
+    //   //cratesToMove.splice(0, 0, ...fromCrate.splice(0, 1));
+    // }
 
     crates.set(to, [...cratesToMove, ...toCrate]);
   }
@@ -79,8 +79,7 @@ export async function part2() {
       continue;
     }
 
-    toCrate.splice(0, 0, ...fromCrate.splice(fromCrate.length - move, fromCrate.length));
-    // toCrate.splice(0, 0, ...fromCrate.splice(0, move));
+    toCrate.splice(0, 0, ...fromCrate.splice(0, move));
   }
 
   let top = '';
