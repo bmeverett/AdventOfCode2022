@@ -7,7 +7,7 @@ export async function run() {
   const crates = new Map<number, string[]>([
     [1, ['R', 'W', 'F', 'H', 'T', 'S']],
     [2, ['W', 'Q', 'D', 'G', 'S']],
-    [3, ['W', 'T', 'S']],
+    [3, ['W', 'T', 'B']],
     [4, ['J', 'Z', 'Q', 'N', 'T', 'W', 'R', 'D']],
     [5, ['Z', 'T', 'V', 'L', 'G', 'H', 'B', 'F']],
     [6, ['G', 'S', 'B', 'V', 'C', 'T', 'P', 'L']],
@@ -26,11 +26,7 @@ export async function run() {
     const toCrate = crates.get(to);
 
     if (!fromCrate || !toCrate) continue;
-    let cratesToMove: string[] = [];
-    // for (let i = 1; i <= move; i++) {
-    //   //cratesToMove.splice(0, 0, ...fromCrate.splice(0, 1));
-    // }
-
+    const cratesToMove = fromCrate.splice(0, move).reverse();
     crates.set(to, [...cratesToMove, ...toCrate]);
   }
 
@@ -49,10 +45,11 @@ export async function part2() {
   const input = await fs.readFileSync('./inputs/day5.txt');
   const values = input.toString().split('\n');
   let count = 0;
+
   const crates = new Map<number, string[]>([
     [1, ['R', 'W', 'F', 'H', 'T', 'S']],
     [2, ['W', 'Q', 'D', 'G', 'S']],
-    [3, ['W', 'T', 'S']],
+    [3, ['W', 'T', 'B']],
     [4, ['J', 'Z', 'Q', 'N', 'T', 'W', 'R', 'D']],
     [5, ['Z', 'T', 'V', 'L', 'G', 'H', 'B', 'F']],
     [6, ['G', 'S', 'B', 'V', 'C', 'T', 'P', 'L']],
@@ -79,7 +76,8 @@ export async function part2() {
       continue;
     }
 
-    toCrate.splice(0, 0, ...fromCrate.splice(0, move));
+    const cratesToMove = fromCrate.splice(0, move);
+    crates.set(to, [...cratesToMove, ...toCrate]);
   }
 
   let top = '';
